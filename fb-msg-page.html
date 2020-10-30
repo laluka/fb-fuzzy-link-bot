@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Fuzzy-Links</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <script src="//cdn.jsdelivr.net/npm/fuse.js/dist/fuse.js"></script>
+
+</head>
+
+<style>
+    body,
+    html {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        background: #0b0b44 !important;
+    }
+
+    .searchbar {
+        margin: 30px;
+        height: 60px;
+        width: 100%;
+        background-color: #353b48;
+        border-radius: 30px;
+        padding: 10px;
+    }
+
+    .search_input {
+        color: white;
+        border: 0;
+        outline: 0;
+        background: none;
+        padding: 0 10px;
+        width: 450px;
+        caret-color: blue;
+        line-height: 40px;
+    }
+
+
+    #results>* {
+        color: white;
+        border: 0;
+        outline: 0;
+        background: none;
+        padding: 0 10px;
+        width: 100%;
+        caret-color: blue;
+        line-height: 30px;
+        list-style-type: none;
+    }
+</style>
+<div class="container h-100">
+    <div class="d-flex justify-content-center">
+        <div class="searchbar">
+            <input class="search_input" type="text" id="pattern" placeholder="Pattern ?" value="http ">
+        </div>
+    </div>
+    <div id="results" class="d-flex justify-content-center"></div>
+</div>
+</body>
+<script>
+    const options_fuse = {
+        isCaseSensitive: false,
+        includeScore: false,
+        shouldSort: true,
+        threshold: 0.1,
+        distance: 99999999,
+        findAllMatches: true,
+        useExtendedSearch: true
+    };
+
+    links = LINKS;
+    const elt_results = document.getElementById("results");
+    const elt_pattern = document.getElementById("pattern");
+    elt_pattern.addEventListener("keyup", fuzzySearch);
+
+    function fuzzySearch() {
+        const fuse = new Fuse(links, options_fuse)
+        var pattern = elt_pattern.value;
+        var matchs = fuse.search(pattern);
+        console.log(pattern, matchs);
+        listElement = document.createElement('ul');
+        matchs.forEach(match => {
+            listItem = document.createElement('li');
+            listItem.innerText = decodeURIComponent(match.item);
+            listElement.appendChild(listItem);
+        });
+        elt_results.replaceChildren(listElement);
+        return;
+    }
+    fuzzySearch();
+</script>
+
+</html>
