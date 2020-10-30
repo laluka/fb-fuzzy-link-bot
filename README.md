@@ -2,11 +2,15 @@
 
 Welcome to fb-fuzzy-link-bot!
 
+![WebUI](./images/webUI.png)
+
 This project is composed of three main components: 
 
 1. fb-msg-listener.js // Puppeteer bot to poll for new messages with your facebook account
 1. fb-msg-server.js   // A simple webUI with fuzzy-find (fusejs) to get links
-1. fb-conf.json       // ThreadID to listen on, basic auth credentials, listening port
+1. fb-conf.json       // messengerURL (1), ThreadID (2 base64-decoded), basic auth credentials, listening port
+
+![Config from devtools](./images/config.png)
 
 
 ## Setup
