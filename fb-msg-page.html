@@ -82,10 +82,15 @@
         var pattern = elt_pattern.value;
         var matchs = fuse.search(pattern);
         console.log(pattern, matchs);
-        listElement = document.createElement('ul');
+        listElement = document.createElement("ul");
         matchs.forEach(match => {
-            listItem = document.createElement('li');
-            listItem.innerText = decodeURIComponent(match.item);
+            realLink = decodeURIComponent(match.item);
+            listItem = document.createElement("li");
+            newlink = document.createElement("a");
+            newlink.setAttribute("href", realLink);
+            newlink.setAttribute("target", "_blank");
+            newlink.textContent = realLink;
+            listItem.appendChild(newlink);
             listElement.appendChild(listItem);
         });
         elt_results.replaceChildren(listElement);
