@@ -24,10 +24,12 @@ https.createServer(options_srv, function (req, res) {
     var credentials = auth(req);
     if (!credentials || credentials.name != config.basicAuth.username || credentials.pass != config.basicAuth.password) {
         res.writeHead(401, { "WWW-Authenticate": "Basic realm='osef'" });
-        res.end('Access denied')
+        res.end('Access denied');
+	return;
     }
     res.writeHead(200, { "Content-Type": "text/html" });
     var page_dyn = page.replace("LINKS", JSON.stringify(links));
     res.write(page_dyn);
     res.end();
+    return;
 }).listen(config.port);
