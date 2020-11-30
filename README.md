@@ -48,6 +48,14 @@ forever --watch fb-msg-server.js
 node fb-msg-listener.js
 ```
 
+## What about docker ?
+
+Yeah, sure :)
+
+```bash
+./build-and-run.sh
+```
+
 
 ## Contribute
 
